@@ -67,7 +67,9 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
             $layout->disableLayout();
         }
 
-        Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->setNoRender(true);
+        /** @var Zend_Controller_Action_Helper_ViewRenderer $helper */
+        $helper = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+        $helper->setNoRender(true);
 
         return $this;
     }
@@ -83,7 +85,10 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
     public function encodeJson($data, $keepLayouts = false)
     {
         if ($this->validateData($data)) {
-            return Zend_Controller_Action_HelperBroker::getStaticHelper('Json')->encodeJson($data, $keepLayouts);
+            /** @var Zend_Controller_Action_Helper_Json */
+            $helper = Zend_Controller_Action_HelperBroker::getStaticHelper('Json');
+
+            return $helper->encodeJson($data, $keepLayouts);
         }
 
         throw new Zend_Controller_Action_Exception('Invalid data passed for autocompletion');

@@ -63,7 +63,9 @@ class Zend_Controller_Action_Helper_AutoCompleteDojo extends Zend_Controller_Act
         }
 
         if (!$keepLayouts) {
-            Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->setNoRender(true);
+            /** @var Zend_Controller_Action_Helper_ViewRenderer $helper */
+            $helper = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+            $helper->setNoRender(true);
 
             $layout = Zend_Layout::getMvcInstance();
             if ($layout instanceof Zend_Layout) {
